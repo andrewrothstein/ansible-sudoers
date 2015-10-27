@@ -1,0 +1,12 @@
+---
+- name: enable passwordless sudo for the admin and sudo groups
+  copy: >
+    owner=root
+    group=root
+    src=etc/sudoers.d/{{item}}
+    dest=/etc/sudoers.d/{{item}}
+  with_items:
+    - nopasswd
+    - proxyenv
+
+
