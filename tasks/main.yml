@@ -1,4 +1,12 @@
 ---
+- name: (Debian) install sudo...
+  when: ansible_os_family == 'Debian'
+  apt: name=sudo state=latest
+
+- name: (EL) install sudo...
+  when: ansible_os_family == 'RedHat'
+  yum: name=sudo state=latest
+    
 - name: enable passwordless sudo for the admin and sudo groups
   copy: >
     owner=root
