@@ -1,6 +1,6 @@
 ---
 - name: install sudo...
-  package: name=sudo state=latest
+  package: name=sudo state=present
     
 - name: enable passwordless sudo for the admin and sudo groups
   copy: >
