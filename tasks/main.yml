@@ -1,15 +1,19 @@
 ---
 - name: install sudo...
+  become: yes
+  become_user: root
   package: name=sudo state=present
     
 - name: enable passwordless sudo for the admin and sudo groups
+  become: yes
+  become_user: root
   copy: >
     owner=root
     group=root
-    src=etc/sudoers.d/{{item}}
-    dest=/etc/sudoers.d/{{item}}
+    src={{item}}
+    dest=/{{item}}
   with_items:
-    - nopasswd
-    - proxyenv
+    - etc/sudoers.d/nopasswd
+    - etc/sudoers.d/proxyenv
 
 
