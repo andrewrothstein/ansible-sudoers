@@ -1,6 +1,0 @@
-Defaults  env_keep +="http_proxy"
-Defaults  env_keep +="https_proxy"
-Defaults  env_keep +="no_proxy"
-Defaults  env_keep +="HTTP_PROXY"
-Defaults  env_keep +="HTTPS_PROXY"
-Defaults  env_keep +="NO_PROXY"
