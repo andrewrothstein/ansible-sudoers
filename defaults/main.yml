@@ -1,6 +1,7 @@
 ---
 sudoers_groups:
   - wheel
+  - sudo
 sudoers_keepenvs:
   - http_proxy
   - https_proxy
