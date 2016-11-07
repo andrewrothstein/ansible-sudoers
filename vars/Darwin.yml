@@ -1,0 +1,2 @@
+---
+sudoers_dropin_dir: /private/etc/sudoers.d
