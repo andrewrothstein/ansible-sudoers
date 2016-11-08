@@ -1,5 +1,7 @@
 ---
 sudoers_dropin_dir: /etc/sudoers.d
+sudoers_pkgs:
+  - sudo
 sudoers_groups:
   - wheel
   - sudo

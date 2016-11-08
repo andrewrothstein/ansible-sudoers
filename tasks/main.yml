@@ -8,10 +8,11 @@
       - "{{ansible_os_family}}.yml"
       skip: true
 
-- name: install sudo...
+- name: install sudo pkgs...
   become: yes
   become_user: root
-  package: name=sudo state=present
+  with_items: '{{sudoers_pkgs}}'
+  package: name={{item}} state=present
 
 - name: ensure sudoers dropin directory exists
   become: yes
