@@ -1,3 +1,6 @@
 ---
 sudoers_dropin_dir: /private/etc/sudoers.d
 sudoers_pkgs: [] # sudo is installed by default
+sudoers_groups:
+  - wheel
+  - admin
