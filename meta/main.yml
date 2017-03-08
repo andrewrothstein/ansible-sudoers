@@ -19,6 +19,9 @@ galaxy_info:
     - name: MacOSX
       versions:
         - all
+    - name: Alpine
+      versions:
+        - all
 
   galaxy_tags:
     - sudo
