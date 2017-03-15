@@ -25,11 +25,19 @@
 - name: enable passwordless sudo for assorted groups
   become: yes
   become_user: root
-  template: >
-    src={{item}}.j2
-    dest={{sudoers_dropin_dir}}/{{item}}
+  template:
+    src: "{{item}}.j2"
+    dest: "{{sudoers_dropin_dir}}/{{item}}"
+    mode: "{{ sudoers_dropin_mode }}"
   with_items:
     - nopasswd
     - proxyenv
-    
+
+- name: Ensure sudoers dropin directory is included
+  become: yes
+  become_user: root
+  lineinfile:
+    dest: "{{ sudoers_cfg_file }}"
+    regexp: '^#includedir\s+{{ sudoers_dropin_dir }}'
+    line: "#includedir {{ sudoers_dropin_dir }}"
 
