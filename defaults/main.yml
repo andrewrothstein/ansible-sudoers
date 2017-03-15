@@ -13,4 +13,4 @@ sudoers_keepenvs:
   - HTTP_PROXY
   - HTTPS_PROXY
   - NO_PROXY
-sudoers_dropin_mode: "0440"
+
