@@ -1,5 +1,6 @@
 andrewrothstein.sudoers
 ===========================
+[![Build Status](https://travis-ci.org/andrewrothstein/ansible-sudoers.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-sudoers)
 
 A role for allowing sudo usage sans password
 
