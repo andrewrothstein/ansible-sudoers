@@ -13,4 +13,3 @@ sudoers_keepenvs:
   - HTTP_PROXY
   - HTTPS_PROXY
   - NO_PROXY
-
