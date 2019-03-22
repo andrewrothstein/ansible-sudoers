@@ -1,28 +1,28 @@
 ---
 - name: resolve platform specific vars
-  include_vars: '{{item}}'
+  include_vars: '{{ item }}'
   with_first_found:
     - files:
-        - '{{ansible_distribution}}-{{ansible_distribution_release}}.yml'
-        - '{{ansible_distribution}}.yml'
-        - '{{ansible_os_family}}.yml'
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
       skip: true
       paths:
-        - '{{role_path}}/vars'
+        - '{{ role_path }}/vars'
 
 - name: install sudo pkgs...
   become: yes
   become_user: root
-  with_items: '{{sudoers_pkgs}}'
+  with_items: '{{ sudoers_pkgs }}'
   package:
-    name: '{{item}}'
+    name: '{{ item }}'
     state: present
 
 - name: ensure sudoers dropin directory exists
   become: yes
   become_user: root
   file:
-    path: '{{sudoers_dropin_dir}}'
+    path: '{{ sudoers_dropin_dir }}'
     state: directory
     mode: 0750
 
@@ -30,8 +30,8 @@
   become: yes
   become_user: root
   template:
-    src: '{{item}}.j2'
-    dest: '{{sudoers_dropin_dir}}/{{item}}'
+    src: '{{ item }}.j2'
+    dest: '{{ sudoers_dropin_dir }}/{{ item }}'
     mode: 0440
   with_items:
     - nopasswd
@@ -41,6 +41,6 @@
   become: yes
   become_user: root
   lineinfile:
-    dest: '{{sudoers_cfg_file}}'
-    regexp: '^#includedir\s+{{sudoers_dropin_dir}}'
-    line: '#includedir {{sudoers_dropin_dir}}'
+    dest: '{{ sudoers_cfg_file }}'
+    regexp: '^#includedir\s+{{ sudoers_dropin_dir }}'
+    line: '#includedir {{ sudoers_dropin_dir }}'
