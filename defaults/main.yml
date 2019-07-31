@@ -13,3 +13,9 @@ sudoers_keepenvs:
   - HTTP_PROXY
   - HTTPS_PROXY
   - NO_PROXY
+sudoreplay_enabled: false
+sudoreplay_envs:
+  - 'Defaults log_output'
+  - 'Defaults!/usr/bin/sudoreplay !log_output'
+  - 'Defaults!/sbin/reboot !log_output'
+sudoreplay_dir: /var/log/sudo-io
