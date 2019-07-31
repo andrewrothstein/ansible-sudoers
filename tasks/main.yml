@@ -44,3 +44,21 @@
     dest: '{{ sudoers_cfg_file }}'
     regexp: '^#includedir\s+{{ sudoers_dropin_dir }}'
     line: '#includedir {{ sudoers_dropin_dir }}'
+
+- name: ensure sudoreplay directory exists
+  become: yes
+  become_user: root
+  file:
+    path: '{{ sudoreplay_dir }}'
+    state: directory
+    mode: 0750
+  when: sudoreplay_enabled
+
+- name: enable sudoreplay
+  become: yes
+  become_user: root
+  template:
+    src: 'sudoreplay.j2'
+    dest: '{{ sudoers_dropin_dir }}/sudoreplay'
+    mode: 0440
+  when: sudoreplay_enabled
