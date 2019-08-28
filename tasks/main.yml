@@ -13,9 +13,8 @@
 - name: install sudo pkgs...
   become: yes
   become_user: root
-  with_items: '{{ sudoers_pkgs }}'
   package:
-    name: '{{ item }}'
+    name: '{{ sudoers_pkgs }}'
     state: present
 
 - name: ensure sudoers dropin directory exists
