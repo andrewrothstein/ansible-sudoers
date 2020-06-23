@@ -1,0 +1,3 @@
+---
+sudoers_pkgs:
+  - app-admin/sudo
