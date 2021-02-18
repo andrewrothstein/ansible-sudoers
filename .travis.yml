@@ -10,7 +10,7 @@ before_install:
   - sudo apt-key add - < Release.key
   - sudo apt-get update -qq
   - sudo apt-get -qq -y install buildah podman
-  - pip install ansible-bender
+  - pip install ansible ansible-bender
 
 
 env:
