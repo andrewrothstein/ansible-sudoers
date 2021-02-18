@@ -10,8 +10,6 @@ before_install:
   - sudo apt-key add - < Release.key
   - sudo apt-get update -qq
   - sudo apt-get -qq -y install buildah podman
-  - pip install ansible ansible-bender
-
 
 env:
   global:
@@ -36,4 +34,4 @@ env:
   - OS=ubuntu VER=focal
   - OS=ubuntu VER=xenial
 script:
-- ansible-bender build test.yml
+- ansible-bender --debug build test.yml
