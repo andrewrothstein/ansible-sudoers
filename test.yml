@@ -1,4 +1,23 @@
 ---
-- hosts: all
+- name: building
+  hosts: all
+  vars:
+    upstream_registry: quay.io
+    upstream_group: andrewrothstein
+    upstream_name: docker-python3
+    target_os: alpine
+    target_os_ver: 3.13
+    target_os: '{{ lookup("env", "OS") }}'
+    target_os_ver: '{{ lookup("env", "VER") }}'
+    ansible_bender:
+      base_image: '{{ upstream_registry }}/{{ upstream_group }}/{{ upstream_name }}:0.0.0-{{ target_os }}-{{ target_os_ver }}'
+      working_container:
+        volumes:
+          - '{{ playbook_dir }}:/src'
+      target_image:
+        name: ansible-sudoers:0.0.0-{{ target_os }}-{{ target_os_ver }}
+        working_dir: /src
+        labels:
+          built-by: andrewrothstein
   roles:
-    - role: '{{playbook_dir}}'
+    role: '{{ playbook_dir }}'

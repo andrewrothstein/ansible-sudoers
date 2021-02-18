@@ -1,34 +1,39 @@
-before_install: "if [[ \"$TRAVIS_OS_NAME\" == \"osx\" ]]\nthen\n  brew upgrade openssl\
-  \ || brew install openssl || true\n  brew upgrade python@3 || brew install python@3\
-  \ || true\n  brew upgrade md5sha1sum || brew install md5sha1sum || true\n  virtualenv\
-  \ venv -p python\n  source venv/bin/activate\n  pip install ansible\nfi"
-branches:
-  except:
-  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
-dist: xenial
-env:
-- OS=alpine_3.11
-- OS=alpine_3.12
-- OS=alpine_edge
-- OS=archlinux_latest
-- OS=centos_7
-- OS=centos_8
-- OS=debian_buster
-- OS=debian_stretch
-- OS=fedora_31
-- OS=fedora_32
-- OS=gentoo_latest
-- OS=ubi8_8.1
-- OS=ubi8_8.2
-- OS=ubuntu_bionic
-- OS=ubuntu_focal
-- OS=ubuntu_xenial
-language: python
-python: '3.7'
-script:
-- ansible-galaxy-local-deps-write
-- dcb --upstreamgroup andrewrothstein --upstreamapp docker-ansible-role --pullall
-  --writeall --buildall --pushall --alltags ${OS}
-services:
-- docker
+---
+dist: focal
 sudo: required
+language: python
+python: '3.9'
+before_install:
+  - . /etc/os-release
+  - sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${ID^}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+  - wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${ID^}_${VERSION_ID}/Release.key -O Release.key
+  - sudo apt-key add - < Release.key
+  - sudo apt-get update -qq
+  - sudo apt-get -qq -y install buildah podman
+  - pip install ansible-bender
+
+
+env:
+  global:
+    - TARGET_REGISTRY=quay.io
+    - TARGET_GROUPNAME=andrewrothstein
+    - TARGET_NAME=docker-python3
+  jobs:
+  - OS=alpine VER=3.12
+  - OS=alpine VER=3.13
+  - OS=alpine VER=edge
+  - OS=archlinux VER=latest
+  - OS=centos VER=7
+  - OS=centos VER=8
+  - OS=debian VER=bullseye
+  - OS=debian VER=buster
+  - OS=debian VER=stretch
+  - OS=fedora VER=33
+  - OS=fedora VER=34
+  - OS=ubi8 VER=8.2
+  - OS=ubi8 VER=8.3
+  - OS=ubuntu VER=bionic
+  - OS=ubuntu VER=focal
+  - OS=ubuntu VER=xenial
+script:
+- ansible-bender build test.yml
