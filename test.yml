@@ -20,4 +20,4 @@
         labels:
           built-by: andrewrothstein
   roles:
-    - role: /src
+    - role: '{{ playbook_dir }}'
