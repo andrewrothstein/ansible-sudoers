@@ -2,11 +2,13 @@
 - name: building
   hosts: all
   vars:
-    upstream_registry: quay.io
-    upstream_group: andrewrothstein
-    upstream_name: docker-python3
-    target_os: alpine
-    target_os_ver: 3.13
+    upstream_registry: '{{ lookup("env", "UPSTREAM_REGISTRY") | default("quay.io", True) }}'
+    upstream_group: '{{ lookup("env", "UPSTREAM_GROUP") | default("andrewrothstein", True) }}'
+    upstream_name: '{{ lookup("env", "UPSTREAM_NAME") | default("docker-python3", True) }}'
+    target_registry: '{{ lookup("env", "TARGET_REGISTRY") | default("quay.io", True) }}'
+    target_group: '{{ lookup("env", "TARGET_GROUP") | default("andrewrothstein", True) }}'
+    target_name: ansible-sudoers
+    target_ver: 0.0.0
     target_os: '{{ lookup("env", "OS") }}'
     target_os_ver: '{{ lookup("env", "VER") }}'
     ansible_bender:
@@ -15,7 +17,7 @@
         volumes:
           - '{{ playbook_dir }}:/src'
       target_image:
-        name: ansible-sudoers:0.0.0-{{ target_os }}-{{ target_os_ver }}
+        name: '{{ target_registry }}/{{ target_group }}/{{ target_name }}:{{ target_ver }}-{{ target_os }}-{{ target_os_ver }}'
         working_dir: /src
         labels:
           built-by: andrewrothstein

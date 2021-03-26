@@ -13,8 +13,6 @@ before_install:
 
 env:
   global:
-    - TARGET_REGISTRY=quay.io
-    - TARGET_GROUPNAME=andrewrothstein
     - TARGET_NAME=docker-python3
   jobs:
   - OS=alpine VER=3.12
@@ -34,4 +32,4 @@ env:
   - OS=ubuntu VER=focal
   - OS=ubuntu VER=xenial
 script:
-- ansible-bender --debug build test.yml
+- ansible-bender build test.yml
