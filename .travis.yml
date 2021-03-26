@@ -13,19 +13,19 @@ before_install:
 
 env:
   global:
-    - TARGET_NAME=docker-python3
+    - TARGET_SLUG=$TRAVIS_REPO_SLUG
   jobs:
   - OS=alpine VER=3.12
   - OS=alpine VER=3.13
   - OS=alpine VER=edge
   - OS=archlinux VER=latest
-  - OS=centos VER=7
   - OS=centos VER=8
   - OS=debian VER=bullseye
   - OS=debian VER=buster
   - OS=debian VER=stretch
   - OS=fedora VER=33
   - OS=fedora VER=34
+  - OS=fedora VER=35
   - OS=ubi8 VER=8.2
   - OS=ubi8 VER=8.3
   - OS=ubuntu VER=bionic
