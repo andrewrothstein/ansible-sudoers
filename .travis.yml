@@ -14,6 +14,7 @@ before_install:
 env:
   global:
     - TARGET_SLUG=$TRAVIS_REPO_SLUG
+    - TARGET_VER=0.0.0
   jobs:
   - OS=alpine VER=3.12
   - OS=alpine VER=3.13
@@ -33,3 +34,5 @@ env:
   - OS=ubuntu VER=xenial
 script:
 - ansible-bender build test.yml
+- buildah login -u $DCB_TARGET_QUAY_IO_USER -p $DCB_TARGET_QUAY_IO_PWD quay.io
+- buildah push quay.io/$TARGET_SLUG:$TARGET_VER-$OS-$VER

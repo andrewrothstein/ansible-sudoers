@@ -4,10 +4,10 @@
   vars:
     upstream_registry: '{{ lookup("env", "UPSTREAM_REGISTRY") | default("quay.io", True) }}'
     upstream_slug: '{{ lookup("env", "UPSTREAM_GROUP") | default("andrewrothstein/docker-python3", True) }}'
-    upstream_ver: 0.0.0
+    upstream_ver: '{{ lookup("env", "UPSTREAM_VER") | default("0.0.0", True) }}'
     target_registry: '{{ lookup("env", "TARGET_REGISTRY") | default("quay.io", True) }}'
     target_slug: '{{ lookup("env", "TARGET_SLUG") | default("andrewrothstein/ansible-sudoers", True) }}'
-    target_ver: 0.0.0
+    target_ver: '{{ lookup("env", "TARGET_VER") | default("0.0.0", True) }}'
     target_os: '{{ lookup("env", "OS") }}'
     target_os_ver: '{{ lookup("env", "VER") }}'
     ansible_bender:
