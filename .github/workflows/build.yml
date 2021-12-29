@@ -1,3 +1,4 @@
+---
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +16,7 @@ jobs:
     - name: Generate requirements.yml
       run: ansible-galaxy-local-deps-write
     - name: 'dcb #ftw'
-      run: dcb --targetregistry ghcr.io --upstreamgroup andrewrothstein --upstreamapp
+      run: dcb --upstreamregistry ghcr.io --upstreamgroup andrewrothstein --upstreamapp
         docker-ansible --targetregistry ghcr.io --targetuser ${{ github.actor }} --targetpwd
         ${{ github.token }} --snippet from.j2 ansible-test-role.j2 --pullall --writeall
         --buildall --pushall --alltags ${{ matrix.os }}
@@ -27,12 +28,12 @@ jobs:
         - alpine_edge
         - archlinux_latest
         - centos_8
-        - rockylinux_8.4
         - debian_bullseye
         - debian_buster
         - fedora_34
         - fedora_35
         - rockylinux_8.4
+        - rockylinux_8.5
         - ubuntu_bionic
         - ubuntu_focal
         python-versions:
