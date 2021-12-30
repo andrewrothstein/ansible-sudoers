@@ -1,0 +1,47 @@
+---
+name: build-and-push-images
+on:
+  push:
+  schedule:
+    - cron:  '0 0 * * *'
+env:
+  IMAGE_VER: 0.0.0
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - os: alpine
+            ver: '3.13'
+          - os: alpine
+            ver: '3.14'
+          - os: alpine
+            ver: '3.15'
+          - os: alpine
+            ver: edge
+          - os: archlinux
+            ver: latest
+          - os: centos
+            ver: '8'
+          - os: debian
+            ver: bullseye
+          - os: debian
+            ver: buster
+          - os: fedora
+            ver: '34'
+          - os: fedora
+            ver: '35'
+          - os: rockylinux
+            ver: '8'
+          - os: ubuntu
+            ver: bionic
+          - os: ubuntu
+            ver: focal
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo buildah login -u "${{ github.actor }}" -p "${{ github.token }}" ghcr.io
+      - name: bender
+        run: sudo ansible-bender build -e target_slug="${GITHUB_REPOSITORY}" target_os="${{ matrix.distro.os }}" target_os_ver="${{ matrix.distro.ver }}" test.yml
+      - name: push
+        run: sudo buildah push ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_VER}-${{ matrix.distro.os }}-${{ matrix.distr.ver }}
