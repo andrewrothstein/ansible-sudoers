@@ -49,6 +49,6 @@ jobs:
       - name: login to ghcr.io
         run: sudo buildah login -u "${{ github.actor }}" -p "${{ github.token }}" ghcr.io
       - name: ansible-bender build
-        run: sudo ansible-bender build -e "target_slug=${GITHUB_REPOSITORY}" "target_os=${{ matrix.distro.os }}" "target_os_ver=${{ matrix.distro.ver }}" test.yml
+        run: sudo ansible-bender build -e "target_slug=andrewrothstein/ansible-sudoers" "target_os=${{ matrix.distro.os }}" "target_os_ver=${{ matrix.distro.ver }}" test.yml
       - name: push to ghcr.io
         run: sudo buildah push "ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_VER}-${{ matrix.distro.os }}-${{ matrix.distr.ver }}"
