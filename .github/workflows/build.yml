@@ -13,8 +13,6 @@ jobs:
 
         if [ -f requirements.txt ]; then python -m pip install -r requirements.txt;
         fi'
-    - name: Generate requirements.yml
-      run: ansible-galaxy-local-deps-write
     - name: 'dcb #ftw'
       run: dcb --upstreamregistry ghcr.io --upstreamgroup andrewrothstein --upstreamapp
         docker-ansible --targetregistry ghcr.io --targetuser ${{ github.actor }} --targetpwd
