@@ -45,9 +45,9 @@ jobs:
         with:
           python-version: 3.10.1
       - name: install ansible, ansible-bender
-        run: python -m pip install -r requirements.txt
+        run: sudo python -m pip install -r requirements.txt
       - run: sudo buildah login -u "${{ github.actor }}" -p "${{ github.token }}" ghcr.io
       - name: bender
-        run: sudo ansible-bender build -e target_slug="${{ env.GITHUB_REPOSITORY }}" target_os="${{ matrix.distro.os }}" target_os_ver="${{ matrix.distro.ver }}" test.yml
+        run: sudo ansible-bender build -e target_slug="$GITHUB_REPOSITORY" target_os="${{ matrix.distro.os }}" target_os_ver="${{ matrix.distro.ver }}" test.yml
       - name: push
-        run: sudo buildah push ghcr.io/${{ env.GITHUB_REPOSITORY }}:${IMAGE_VER}-${{ matrix.distro.os }}-${{ matrix.distr.ver }}
+        run: sudo buildah push ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_VER}-${{ matrix.distro.os }}-${{ matrix.distr.ver }}
