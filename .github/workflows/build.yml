@@ -54,4 +54,4 @@ jobs:
       - name: login to ghcr.io
         run: sudo buildah login -u "${{ github.actor }}" -p "${{ github.token }}" ghcr.io
       - name: push to ghcr.io
-        run: sudo buildah push "ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_VER}-${{ matrix.distro.os }}-${{ matrix.distr.ver }}"
+        run: sudo buildah push "ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_VER}-${{ matrix.distro.os }}-${{ matrix.distro.ver }}"
