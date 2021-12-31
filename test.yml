@@ -6,7 +6,7 @@
     upstream_slug: '{{ lookup("env", "UPSTREAM_SLUG") | default("andrewrothstein/docker-python3", True) }}'
     upstream_ver: '{{ lookup("env", "UPSTREAM_VER") | default("0.0.0", True) }}'
     target_registry: '{{ lookup("env", "TARGET_REGISTRY") | default("ghcr.io", True) }}'
-    target_slug: '{{ lookup("env", "TARGET_SLUG") }}'
+    target_slug: '{{ lookup("env", "GITHUB_REPOSITORY") }}'
     target_ver: '{{ lookup("env", "TARGET_VER") | default("0.0.0", True) }}'
     target_os: '{{ lookup("env", "TARGET_OS") }}'
     target_os_ver: '{{ lookup("env", "TARGET_OS_VER") }}'

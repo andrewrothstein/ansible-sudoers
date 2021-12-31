@@ -48,7 +48,6 @@ jobs:
         run: sudo python -m pip install -r requirements.txt
       - name: ansible-bender build
         env:
-          TARGET_SLUG: ${{ env.GITHUB_REPOSITORY }}
           TARGET_OS: ${{ matrix.distro.os }}
           TARGET_OS_VER: ${{ matrix.distro.ver }}
         run: sudo -E ansible-bender --debug build test.yml
