@@ -11,7 +11,6 @@
     target_os: '{{ lookup("env", "TARGET_OS") }}'
     target_os_ver: '{{ lookup("env", "TARGET_OS_VER") }}'
     ansible_bender:
-      ansible_extra_args: "-vvv"
       base_image: '{{ upstream_registry }}/{{ upstream_slug }}:{{ upstream_ver }}-{{ target_os }}-{{ target_os_ver }}'
       working_container:
         volumes:
