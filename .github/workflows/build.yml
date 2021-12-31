@@ -50,7 +50,7 @@ jobs:
         env:
           TARGET_OS: ${{ matrix.distro.os }}
           TARGET_OS_VER: ${{ matrix.distro.ver }}
-        run: sudo -E ansible-bender --debug build test.yml
+        run: sudo -E ansible-bender build test.yml
       - name: login to ghcr.io
         run: sudo buildah login -u "${{ github.actor }}" -p "${{ github.token }}" ghcr.io
       - name: push to ghcr.io
