@@ -6,8 +6,12 @@
     upstream_slug: '{{ lookup("env", "UPSTREAM_SLUG") | default("andrewrothstein/docker-python3", True) }}'
     upstream_ver: '{{ lookup("env", "UPSTREAM_VER") | default("0.0.0", True) }}'
     target_registry: '{{ lookup("env", "TARGET_REGISTRY") | default("ghcr.io", True) }}'
+    target_slug: '{{ lookup("env", "TARGET_SLUG") }}'
     target_ver: '{{ lookup("env", "TARGET_VER") | default("0.0.0", True) }}'
+    target_os: '{{ lookup("env", "TARGET_OS") }}'
+    target_os_ver: '{{ lookup("env", "TARGET_OS_VER") }}'
     ansible_bender:
+      ansible_extra_args: "-vvv"
       base_image: '{{ upstream_registry }}/{{ upstream_slug }}:{{ upstream_ver }}-{{ target_os }}-{{ target_os_ver }}'
       working_container:
         volumes:
