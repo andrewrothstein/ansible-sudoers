@@ -20,13 +20,16 @@ galaxy_info:
     - name: EL
       versions:
         - 8
+        - 9
     - name: Fedora
       versions:
-        - 34
+        - 36
+        - 37
     - name: Ubuntu
       versions:
         - bionic
         - focal
+        - jammy
     - name: MacOSX
       versions:
         - all
