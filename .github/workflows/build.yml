@@ -10,7 +10,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: install task
       uses: github.com/andrewrothstein/setup-task@feature/nvm-and-fix-warnings
-      uses: actions/checkout@v2
     - name: download task mono
       uses: actions/checkout@v2
       with:
