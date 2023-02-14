@@ -13,7 +13,7 @@ jobs:
     - name: download task mono
       uses: actions/checkout@v2
       with:
-        repository: github.com/andrewrothstein/tasks
+        repository: andrewrothstein/tasks
         ref: HEAD
         path: tasks
     - name: 'task #ftw'
