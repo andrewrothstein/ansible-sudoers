@@ -16,11 +16,12 @@ jobs:
         repository: andrewrothstein/tasks
         ref: develop
         path: taskmono
+    - name: task ver
+      run: task --version
     - name: 'task #ftw'
       run: |
-        task --version;
         task \
-          -t taskmono/apps/ansible-test-role/Taskfile.yml \
+          -t taskmono/tasks/ansible-test-role.yml \
           "alltags=${{ matrix.os }}"
     strategy:
       matrix:
