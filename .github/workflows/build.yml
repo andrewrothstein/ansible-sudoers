@@ -19,7 +19,11 @@ jobs:
         ref: develop
         path: taskmono
     - name: 'task #ftw'
-      run: task -t taskmono/ansible-test-role.yml "alltags=${{ matrix.os }}"
+      run: |
+        task \
+          -t taskmono/ansible-test-role.yml \
+          "alltags=${{ matrix.os }}" \
+          "targetuser=${{ github.actor }}"
     strategy:
       fail-fast: false
       matrix:
