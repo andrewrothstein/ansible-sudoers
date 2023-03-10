@@ -23,7 +23,8 @@ jobs:
         task \
           -t taskmono/ansible-test-role.yml \
           "alltags=${{ matrix.os }}" \
-          "targetuser=${{ github.actor }}"
+          "targetuser=${{ github.actor }}" \
+          "targetpwd=${{ github.token }}"
     strategy:
       fail-fast: false
       matrix:
