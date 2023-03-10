@@ -19,11 +19,9 @@ jobs:
         ref: develop
         path: taskmono
     - name: 'task #ftw'
-      run: |
-        task \
-          -t taskmono/tasks/ansible-test-role.yml \
-          "alltags=${{ matrix.os }}"
+      run: task -t taskmono/ansible-test-role.yml "alltags=${{ matrix.os }}"
     strategy:
+      fail-fast: false
       matrix:
         os:
         - alpine_3.16
