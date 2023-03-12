@@ -3,10 +3,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: install python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
+        cache: pip
         python-version: ${{ matrix.python-version }}
     - name: install task
       uses: arduino/setup-task@v1
@@ -15,16 +16,12 @@ jobs:
     - name: download task mono
       uses: actions/checkout@v2
       with:
-        repository: andrewrothstein/tasks
-        ref: develop
         path: taskmono
+        ref: develop
+        repository: andrewrothstein/tasks
     - name: 'task #ftw'
-      run: |
-        task \
-          -t taskmono/ansible-test-role.yml \
-          "alltags=${{ matrix.os }}" \
-          "targetuser=${{ github.actor }}" \
-          "targetpwd=${{ github.token }}"
+      run: task -t taskmono/ansible-test-role.yml "targetuser=${{ matrix.os}}" "targetpwd=${{
+        github.token }}" "alltags=${{ matrix.os }}"
     strategy:
       fail-fast: false
       matrix:
@@ -41,8 +38,8 @@ jobs:
         - rockylinux_9
         - ubuntu_focal
         - ubuntu_jammy
-        python-versions:
-        - '3.10'
+        python-version:
+        - '3.11'
 name: dcb
 'on':
 - push
