@@ -41,7 +41,7 @@
   become_user: root
   lineinfile:
     dest: '{{ sudoers_cfg_file }}'
-    regexp: '^#includedir\s+{{ sudoers_dropin_dir }}'
+    regexp: '^[#|@]includedir\s+{{ sudoers_dropin_dir }}'
     line: '#includedir {{ sudoers_dropin_dir }}'
 
 - name: ensure sudoreplay directory exists
