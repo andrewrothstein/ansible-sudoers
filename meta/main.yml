@@ -36,5 +36,4 @@ galaxy_info:
   galaxy_tags:
     - sudo
     - sysadmin
-
-dependencies: []
+  role_name: sudoers

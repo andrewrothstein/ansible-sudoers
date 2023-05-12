@@ -11,14 +11,14 @@
         - '{{ role_path }}/vars'
 
 - name: install sudo pkgs...
-  become: yes
+  become: true
   become_user: root
   package:
     name: '{{ sudoers_pkgs }}'
     state: present
 
-- name: ensure sudoers dropin directory exists
-  become: yes
+- name: ensure sudoers dropin directory {{ sudoers_dropin_dir }} exists
+  become: true
   become_user: root
   file:
     path: '{{ sudoers_dropin_dir }}'
@@ -26,7 +26,7 @@
     mode: 0750
 
 - name: enable passwordless sudo for assorted groups
-  become: yes
+  become: true
   become_user: root
   template:
     src: '{{ item }}.j2'
@@ -37,27 +37,34 @@
     - proxyenv
 
 - name: 'ensure sudoers dropin directory is #includedir-ed'
-  become: yes
+  become: true
   become_user: root
   lineinfile:
     dest: '{{ sudoers_cfg_file }}'
     regexp: '^#includedir\s+{{ sudoers_dropin_dir }}'
     line: '#includedir {{ sudoers_dropin_dir }}'
 
-- name: ensure sudoreplay directory exists
-  become: yes
+- name: ensure sudoers dropin directory is @includedir-ed
+  become: true
   become_user: root
-  file:
-    path: '{{ sudoreplay_dir }}'
-    state: directory
-    mode: 0750
-  when: sudoreplay_enabled
+  lineinfile:
+    dest: '{{ sudoers_cfg_file }}'
+    regexp: '^@includedir\s+{{ sudoers_dropin_dir }}'
+    line: '@includedir {{ sudoers_dropin_dir }}'
 
-- name: enable sudoreplay
-  become: yes
-  become_user: root
-  template:
-    src: 'sudoreplay.j2'
-    dest: '{{ sudoers_dropin_dir }}/sudoreplay'
-    mode: 0440
-  when: sudoreplay_enabled
+- when: sudoreplay_enabled
+  block:
+    - name: ensure sudoreplay directory {{ sudoreplay_dir }} exists
+      become: true
+      become_user: root
+      file:
+        path: '{{ sudoreplay_dir }}'
+        state: directory
+        mode: 0750
+    - name: dropin sudoreplay
+      become: true
+      become_user: root
+      template:
+        src: sudoreplay.j2
+        dest: '{{ sudoers_dropin_dir }}/sudoreplay'
+        mode: 0440
