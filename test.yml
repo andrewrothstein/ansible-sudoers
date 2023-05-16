@@ -2,3 +2,7 @@
 - hosts: all
   roles:
     - role: '{{ playbook_dir }}'
+  tasks:
+    - name: test `sudo true`
+      command: sudo true
+      changed_when: false
