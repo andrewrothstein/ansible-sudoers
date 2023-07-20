@@ -15,16 +15,16 @@ galaxy_info:
         - latest
     - name: Debian
       versions:
+        - bookworm
         - bullseye
-        - buster
     - name: EL
       versions:
         - 8
         - 9
     - name: Fedora
       versions:
-        - 36
         - 37
+        - 38
     - name: Ubuntu
       versions:
         - focal
@@ -32,7 +32,6 @@ galaxy_info:
     - name: MacOSX
       versions:
         - all
-
   galaxy_tags:
     - sudo
     - sysadmin
