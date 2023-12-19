@@ -3,8 +3,7 @@ galaxy_info:
   author: Andrew Rothstein
   description: sets up sudoers for passwordless sudo
   company: BlackRock
-  license:
-    - MIT
+  license: MIT
   min_ansible_version: 1.2
   platforms:
     - name: Alpine
@@ -23,8 +22,8 @@ galaxy_info:
         - 9
     - name: Fedora
       versions:
-        - 37
         - 38
+        - 39
     - name: Ubuntu
       versions:
         - focal

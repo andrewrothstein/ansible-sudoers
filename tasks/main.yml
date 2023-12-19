@@ -1,6 +1,6 @@
 ---
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -10,53 +10,53 @@
       paths:
         - '{{ role_path }}/vars'
 
-- name: install sudo pkgs...
+- name: Install sudo pkgs...
   become: true
   become_user: root
-  package:
+  ansible.builtin.package:
     name: '{{ sudoers_pkgs }}'
     state: present
 
-- name: ensure sudoers dropin directory {{ sudoers_dropin_dir }} exists
+- name: Ensure sudoers dropin directory {{ sudoers_dropin_dir }} exists
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     path: '{{ sudoers_dropin_dir }}'
     state: directory
-    mode: 0750
+    mode: '750'
 
-- name: enable passwordless sudo for assorted groups
+- name: Enable passwordless sudo for assorted groups
   become: true
   become_user: root
-  template:
+  ansible.builtin.template:
     src: '{{ item }}.j2'
     dest: '{{ sudoers_dropin_dir }}/{{ item }}'
-    mode: 0440
+    mode: '440'
   with_items:
     - nopasswd
     - proxyenv
 
-- name: 'ensure sudoers dropin directory is #includedir-ed'
+- name: Ensure sudoers dropin directory is (hash)includedir-ed
   become: true
   become_user: root
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: '{{ sudoers_cfg_file }}'
     regexp: '^[#@]includedir\s+{{ sudoers_dropin_dir }}'
     line: '#includedir {{ sudoers_dropin_dir }}'
 
 - when: sudoreplay_enabled
   block:
-    - name: ensure sudoreplay directory {{ sudoreplay_dir }} exists
+    - name: Ensure sudoreplay directory {{ sudoreplay_dir }} exists
       become: true
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ sudoreplay_dir }}'
         state: directory
-        mode: 0750
-    - name: dropin sudoreplay
+        mode: '750'
+    - name: Dropin sudoreplay
       become: true
       become_user: root
-      template:
+      ansible.builtin.template:
         src: sudoreplay.j2
         dest: '{{ sudoers_dropin_dir }}/sudoreplay'
-        mode: 0440
+        mode: '440'
