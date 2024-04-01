@@ -1,8 +1,9 @@
 ---
-- hosts: all
+- name: Testing andrewrothstein.sudoers
+  hosts: all
   roles:
     - role: '{{ playbook_dir }}'
   tasks:
-    - name: test `sudo true`
-      command: sudo true
+    - name: Test `sudo true`
+      ansible.builtin.command: sudo true
       changed_when: false

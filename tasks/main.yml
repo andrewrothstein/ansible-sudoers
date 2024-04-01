@@ -44,7 +44,8 @@
     regexp: '^[#@]includedir\s+{{ sudoers_dropin_dir }}'
     line: '#includedir {{ sudoers_dropin_dir }}'
 
-- when: sudoreplay_enabled
+- name: Configuring sudo dropin
+  when: sudoreplay_enabled
   block:
     - name: Ensure sudoreplay directory {{ sudoreplay_dir }} exists
       become: true
