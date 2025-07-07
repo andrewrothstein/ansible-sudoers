@@ -2,4 +2,7 @@
 jobs:
   dagger-ansible-test-role-v1:
     uses: andrewrothstein/.github/.github/workflows/dagger-ansible-test-role-v1.yml@feature/dagger
+    permissions:
+      contents: read
+      packages: write
 'on': push
