@@ -26,10 +26,10 @@ galaxy_info:
         - '9'
     - name: Fedora
       versions:
-        - '38'
-        - '39'
+        - '41'
+        - '42'
     - name: Ubuntu
       versions:
-        - focal
         - jammy
+        - noble
   role_name: sudoers
