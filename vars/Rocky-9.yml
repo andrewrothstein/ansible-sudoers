@@ -1,0 +1,5 @@
+---
+sudoers_pkgs:
+  - sudo
+  - authselect
+sudoers_authselect_profile: minimal

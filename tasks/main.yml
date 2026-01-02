@@ -4,6 +4,7 @@
   with_first_found:
     - files:
         - '{{ ansible_facts["distribution"] }}-{{ ansible_facts["distribution_release"] }}.yml'
+        - '{{ ansible_facts["distribution"] }}-{{ ansible_facts["distribution_major_version"] }}.yml'
         - '{{ ansible_facts["distribution"] }}.yml'
         - '{{ ansible_facts["os_family"] }}.yml'
       skip: true
@@ -16,6 +17,14 @@
   ansible.builtin.package:
     name: '{{ sudoers_pkgs }}'
     state: present
+
+- name: Configure authselect profile for PAM (RHEL 9+ containers)
+  when: sudoers_authselect_profile is defined
+  become: true
+  become_user: root
+  ansible.builtin.command:
+    cmd: authselect select {{ sudoers_authselect_profile }} --force
+  changed_when: true
 
 - name: Ensure sudoers dropin directory {{ sudoers_dropin_dir }} exists
   become: true
