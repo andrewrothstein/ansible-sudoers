@@ -1,5 +1,2 @@
 ---
-sudoers_pkgs:
-  - sudo
-  - authselect
-sudoers_authselect_profile: minimal
+sudoers_pam_sss_fix: true

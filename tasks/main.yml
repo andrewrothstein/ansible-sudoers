@@ -18,13 +18,17 @@
     name: '{{ sudoers_pkgs }}'
     state: present
 
-- name: Configure authselect profile for PAM (RHEL 9+ containers)
-  when: sudoers_authselect_profile is defined
+- name: Fix PAM sss module issue in containers (RHEL 9+)
+  when: sudoers_pam_sss_fix | default(false)
   become: true
   become_user: root
-  ansible.builtin.command:
-    cmd: authselect select {{ sudoers_authselect_profile }} --force
-  changed_when: true
+  ansible.builtin.replace:
+    path: '{{ item }}'
+    regexp: '^(.*)pam_sss\.so(.*)$'
+    replace: '#\1pam_sss.so\2'
+  loop:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
 
 - name: Ensure sudoers dropin directory {{ sudoers_dropin_dir }} exists
   become: true
