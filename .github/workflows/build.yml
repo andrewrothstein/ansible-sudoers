@@ -3,5 +3,5 @@ name: build
 'on': push
 jobs:
   dagger-ansible-test-role:
-    uses: andrewrothstein/docker-ansible/.github/workflows/dagger-ansible-test-role.yml@develop
+    uses: andrewrothstein/docker-ansible/.github/workflows/dagger-ansible-test-role.yml@feature/insecure-root-caps
     secrets: inherit
