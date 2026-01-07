@@ -46,6 +46,17 @@
     - /etc/pam.d/system-auth
     - /etc/pam.d/password-auth
 
+# Fix for BuildKit PAM error: https://github.com/docker/build-push-action/issues/1302
+- name: Fix /etc/shadow permissions for BuildKit containers (RHEL 9+)
+  when:
+    - ansible_facts['os_family'] == 'RedHat'
+    - sudoers_shadow_fix | default(false)
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: /etc/shadow
+    mode: '0640'
+
 - name: Ensure sudoers dropin directory {{ sudoers_dropin_dir }} exists
   become: true
   become_user: root
