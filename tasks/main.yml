@@ -18,21 +18,6 @@
     name: '{{ sudoers_pkgs }}'
     state: present
 
-- name: Debug nsswitch.conf before fix
-  when:
-    - ansible_facts['os_family'] == 'RedHat'
-    - sudoers_nsswitch_sss_fix | default(false)
-  ansible.builtin.shell: grep -E '^(passwd|group):' /etc/nsswitch.conf
-  register: nsswitch_before
-  changed_when: false
-
-- name: Show nsswitch.conf before fix
-  when:
-    - ansible_facts['os_family'] == 'RedHat'
-    - sudoers_nsswitch_sss_fix | default(false)
-  ansible.builtin.debug:
-    var: nsswitch_before.stdout_lines
-
 - name: Fix nsswitch.conf sss issue in containers (RHEL 9+)
   when:
     - ansible_facts['os_family'] == 'RedHat'
@@ -46,21 +31,6 @@
   loop:
     - passwd
     - group
-
-- name: Debug nsswitch.conf after fix
-  when:
-    - ansible_facts['os_family'] == 'RedHat'
-    - sudoers_nsswitch_sss_fix | default(false)
-  ansible.builtin.shell: grep -E '^(passwd|group):' /etc/nsswitch.conf
-  register: nsswitch_after
-  changed_when: false
-
-- name: Show nsswitch.conf after fix
-  when:
-    - ansible_facts['os_family'] == 'RedHat'
-    - sudoers_nsswitch_sss_fix | default(false)
-  ansible.builtin.debug:
-    var: nsswitch_after.stdout_lines
 
 - name: Fix PAM sss module issue in containers (RHEL 9+)
   when:
