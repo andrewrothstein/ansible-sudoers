@@ -18,8 +18,24 @@
     name: '{{ sudoers_pkgs }}'
     state: present
 
+- name: Fix nsswitch.conf sss issue in containers (RHEL 9+)
+  when:
+    - ansible_facts['os_family'] == 'RedHat'
+    - sudoers_nsswitch_sss_fix | default(false)
+  become: true
+  become_user: root
+  ansible.builtin.replace:
+    path: /etc/nsswitch.conf
+    regexp: '^({{ item }}:\s*)sss\s+(.*)$'
+    replace: '\1\2'
+  loop:
+    - passwd
+    - group
+
 - name: Fix PAM sss module issue in containers (RHEL 9+)
-  when: sudoers_pam_sss_fix | default(false)
+  when:
+    - ansible_facts['os_family'] == 'RedHat'
+    - sudoers_pam_sss_fix | default(false)
   become: true
   become_user: root
   ansible.builtin.replace:

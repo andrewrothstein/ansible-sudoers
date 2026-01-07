@@ -1,2 +1,3 @@
 ---
 sudoers_pam_sss_fix: true
+sudoers_nsswitch_sss_fix: true

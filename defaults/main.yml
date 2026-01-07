@@ -19,3 +19,4 @@ sudoreplay_envs:
   - 'Defaults!/usr/bin/sudoreplay !log_output'
   - 'Defaults!/sbin/reboot !log_output'
 sudoreplay_dir: /var/log/sudo-io
+# force $(date +%s)
